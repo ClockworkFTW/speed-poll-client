@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { useCookies } from "react-cookie";
+import jwt_decode from "jwt-decode";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 const App = () => {
+  const [cookies, setCookie] = useCookies();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3005/user", { withCredentials: true })
-      .then((res) => {
-        setUser(res.data);
-      });
+    if (cookies.user) {
+      console.log(jwt_decode(cookies.user));
+    }
   }, []);
 
   return (

@@ -6,10 +6,10 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const localLogin = () => {
+  const localLogin = async () => {
     try {
       const user = { username, password };
-      axios.post("http://localhost:3005/auth/local", user, {
+      await axios.post("http://localhost:3005/auth/local", user, {
         withCredentials: true,
       });
     } catch (error) {
