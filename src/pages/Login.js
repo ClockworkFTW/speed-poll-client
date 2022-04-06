@@ -1,32 +1,51 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-const Login = () => {
-  const [username, setUsername] = useState("");
+const BASE_URL = "https://jnb-api.ngrok.io/auth";
+
+const Login = ({ setUser }) => {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const localLogin = async () => {
     try {
-      const user = { username, password };
-      await axios.post("http://localhost:3005/auth/local", user, {
+      const credentials = { email, password };
+
+      // Authenticate user and set cookie
+      await axios.post(`${BASE_URL}/local/login`, credentials, {
         withCredentials: true,
       });
+
+      // Get user
+      const res = await axios.get(`${BASE_URL}/user`, {
+        withCredentials: true,
+      });
+
+      // Set user and navigate home
+      if (res.status === 200 && res.data) {
+        setUser(res.data);
+        navigate("/");
+      }
     } catch (error) {
-      console.log(error);
+      // Get the fucking error message...
+      console.log(error.response);
     }
   };
 
   const googleLogin = () => {
-    window.open("http://localhost:3005/auth/google", "_self");
+    window.open(`${BASE_URL}/google/login`, "_self");
   };
 
   const facebookLogin = () => {
-    window.open("http://localhost:3005/auth/facebook", "_self");
+    window.open(`${BASE_URL}/facebook/login`, "_self");
   };
 
   const appleLogin = () => {
-    window.open("http://localhost:3005/auth/apple", "_self");
+    window.open(`${BASE_URL}/apple/login`, "_self");
   };
 
   return (
@@ -36,8 +55,8 @@ const Login = () => {
         <Input
           type="email"
           placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Input
           type="password"

@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 const App = () => {
-  const [cookies, setCookie] = useCookies();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (cookies.user) {
-      console.log(jwt_decode(cookies.user));
-    }
+    const getUser = async () => {
+      try {
+        const res = await axios.get("https://jnb-api.ngrok.io/user", {
+          withCredentials: true,
+        });
+
+        if (res.status === 200 && res.data) {
+          setUser(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUser();
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home user={user} setUser={setUser} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
       </Routes>
     </BrowserRouter>
   );
