@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Home = ({ user, setUser }) => {
-  const logout = async () => {
+  const signOut = async () => {
     try {
-      const res = await axios.get("https://jnb-api.ngrok.io/auth/logout", {
+      const res = await axios.get("https://jnb-api.ngrok.io/auth/sign-out", {
         withCredentials: true,
       });
 
@@ -20,11 +20,11 @@ const Home = ({ user, setUser }) => {
 
   return (
     <div>
-      <h1>{user ? `Welcome ${user.username}` : "Please log in"}</h1>
+      <h1>{user ? `Welcome ${user.username}` : "Please sign in"}</h1>
       {user ? (
-        <Button onClick={logout}>logout</Button>
+        <Button onClick={signOut}>sign out</Button>
       ) : (
-        <Link to="/login">login</Link>
+        <Link to="/sign-in">sign in</Link>
       )}
     </div>
   );

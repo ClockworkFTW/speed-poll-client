@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -30,7 +31,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} setUser={setUser} />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/sign-up" element={<SignUp setUser={setUser} />} />
+        <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
       </Routes>
     </BrowserRouter>
   );
