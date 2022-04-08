@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+
+import { useQueryError } from "../hooks";
 
 const BASE_URL = "https://jnb-api.ngrok.io/auth";
 
 const SignIn = ({ setUser }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-
-    if (queryParams.has("error")) {
-      setError(queryParams.get("error"));
-      navigate("/sign-in", { replace: true });
-    }
-  }, []);
+  const [error, setError] = useQueryError();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
