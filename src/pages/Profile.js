@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Home = () => (
+const Profile = () => (
   <Container>
-    <h1>Home</h1>
+    <h1>Profile</h1>
   </Container>
 );
 
@@ -13,4 +13,4 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-export default Home;
+export default Profile;

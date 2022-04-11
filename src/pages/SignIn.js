@@ -1,87 +1,78 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Navigate, Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { useQueryError } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { localSignIn } from "../redux/auth";
 
-const BASE_URL = "https://jnb-api.ngrok.io/auth";
+import { useOauth } from "../hooks";
 
-const SignIn = ({ setUser }) => {
-  const navigate = useNavigate();
-  const [error, setError] = useQueryError();
+import { BASE_URL } from "../api";
+
+const SignIn = () => {
+  useOauth();
+
+  const { user, loading } = useSelector((state) => state.auth);
+  const [notificationType, notificationMessage] = useSelector(
+    ({ notification }) => [notification.type, notification.message]
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const localSignIn = async () => {
-    try {
-      const credentials = { email, password };
+  const dispatch = useDispatch();
 
-      const res = await axios.post(`${BASE_URL}/local/sign-in`, credentials, {
-        withCredentials: true,
-      });
-
-      if (res.status === 200 && res.data.user) {
-        setUser(res.data.user);
-        navigate("/");
-      }
-    } catch (error) {
-      setError(error.response.data.message);
-    }
+  const handleLocalSignIn = () => {
+    dispatch(localSignIn({ email, password }));
   };
 
-  const googleSignIn = () => {
-    window.open(`${BASE_URL}/google/sign-in`, "_self");
+  const handleGoogleSignIn = () => {
+    window.open(`${BASE_URL}/auth/google/sign-in`, "_self");
   };
 
-  const facebookSignIn = () => {
-    window.open(`${BASE_URL}/facebook/sign-in`, "_self");
+  const handleFacebookSignIn = () => {
+    window.open(`${BASE_URL}/auth/facebook/sign-in`, "_self");
   };
 
-  const appleSignIn = () => {
-    window.open(`${BASE_URL}/apple/sign-in`, "_self");
+  const handleAppleSignIn = () => {
+    window.open(`${BASE_URL}/auth/apple/sign-in`, "_self");
   };
 
-  return (
-    <Wrapper>
-      <Container>
-        {error && <Header>{error}</Header>}
-        <Header>Sign in with email</Header>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button onClick={localSignIn}>Sign In</Button>
-        <Header>Or sign in with</Header>
-        <Button onClick={googleSignIn}>Google</Button>
-        <Button onClick={facebookSignIn}>Facebook</Button>
-        <Button onClick={appleSignIn}>Apple</Button>
-        <p>
-          Don't have an account? <Link to="/sign-up">Sign up</Link>
-        </p>
-      </Container>
-    </Wrapper>
+  return user ? (
+    <Navigate to="/" replace />
+  ) : (
+    <Container>
+      {loading && <p>Loading...</p>}
+      {notificationType === "SIGN_IN_ERROR" && <p>{notificationMessage}</p>}
+      <Header>Sign in with email</Header>
+      <Input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <Input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <Button onClick={handleLocalSignIn}>Sign In</Button>
+      <Header>Or sign in with</Header>
+      <Button onClick={handleGoogleSignIn}>Google</Button>
+      <Button onClick={handleFacebookSignIn}>Facebook</Button>
+      <Button onClick={handleAppleSignIn}>Apple</Button>
+      <p>
+        Don't have an account? <Link to="/sign-up">Sign up</Link>
+      </p>
+    </Container>
   );
 };
 
-const Wrapper = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const Container = styled.div`
-  width: 600px;
+  max-width: 500px;
+  margin: 0px auto;
+  padding: 20px;
   text-align: center;
 `;
 

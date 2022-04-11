@@ -1,41 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+
+import Header from "./components/Header";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import Profile from "./pages/Profile";
 
-const App = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const res = await axios.get("https://jnb-api.ngrok.io/user", {
-          withCredentials: true,
-        });
-
-        if (res.status === 200 && res.data) {
-          setUser(res.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getUser();
-  }, []);
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home user={user} setUser={setUser} />} />
-        <Route path="/sign-up" element={<SignUp setUser={setUser} />} />
-        <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const App = () => (
+  <BrowserRouter>
+    <Header />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/sign-in" element={<SignIn />} />
+      <Route element={<ProtectedRoute redirectPath="/" />}>
+        <Route path="/profile" element={<Profile />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
