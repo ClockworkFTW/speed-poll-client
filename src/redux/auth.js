@@ -1,16 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as authAPI from "../api/auth";
 
-import { setNotification, clearNotification } from "./notification";
+import {
+  setNotification,
+  clearNotification,
+  NOTIFICATION_TYPE_SUCCESS,
+  NOTIFICATION_TYPE_ERROR,
+} from "./notification";
 
 export const localSignIn = createAsyncThunk(
   "auth/localSignIn",
   async (credentials, { dispatch, rejectWithValue }) => {
     try {
       const user = await authAPI.localSignIn(credentials);
+
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: "Signed in successfully with email!",
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
       return user;
     } catch (error) {
-      dispatch(setNotification({ type: "SIGN_IN_ERROR", message: error }));
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_ERROR,
+          message: error,
+        })
+      );
 
       setTimeout(() => {
         dispatch(clearNotification());
@@ -26,9 +48,61 @@ export const localSignUp = createAsyncThunk(
   async (credentials, { dispatch, rejectWithValue }) => {
     try {
       const user = await authAPI.localSignUp(credentials);
+
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: "Signed up successfully with email!",
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
       return user;
     } catch (error) {
-      dispatch(setNotification({ type: "SIGN_UP_ERROR", message: error }));
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_ERROR,
+          message: error,
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      return rejectWithValue(false);
+    }
+  }
+);
+
+export const oauthSignIn = createAsyncThunk(
+  "auth/oauthSignIn",
+  async ({ user, error }, { dispatch, rejectWithValue }) => {
+    if (user) {
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: `Signed in successfully with ${user.source}!`,
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      return user;
+    }
+
+    if (error) {
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_ERROR,
+          message: error,
+        })
+      );
 
       setTimeout(() => {
         dispatch(clearNotification());
@@ -44,9 +118,26 @@ export const signOut = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       await authAPI.signOut();
+
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: "Signed out successfully!",
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
       return null;
     } catch (error) {
-      dispatch(setNotification({ type: "SIGN_OUT_ERROR", message: error }));
+      dispatch(
+        setNotification({
+          type: NOTIFICATION_TYPE_ERROR,
+          message: error,
+        })
+      );
 
       setTimeout(() => {
         dispatch(clearNotification());
@@ -60,11 +151,6 @@ export const signOut = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: { user: null, loading: false },
-  reducers: {
-    setAuthUser: (state, action) => {
-      state.user = action.payload;
-    },
-  },
   extraReducers: (builder) => {
     builder.addCase(localSignIn.pending, (state) => {
       state.loading = true;
@@ -86,6 +172,9 @@ const authSlice = createSlice({
     builder.addCase(localSignUp.rejected, (state, action) => {
       state.loading = action.payload;
     });
+    builder.addCase(oauthSignIn.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
     builder.addCase(signOut.pending, (state) => {
       state.loading = true;
     });
@@ -99,8 +188,4 @@ const authSlice = createSlice({
   },
 });
 
-const { actions, reducer } = authSlice;
-
-export const { setAuthUser } = actions;
-
-export default reducer;
+export default authSlice.reducer;

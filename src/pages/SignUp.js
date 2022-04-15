@@ -13,9 +13,6 @@ const SignUp = () => {
   useOauth();
 
   const { user, loading } = useSelector((state) => state.auth);
-  const [notificationType, notificationMessage] = useSelector(
-    ({ notification }) => [notification.type, notification.message]
-  );
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +42,6 @@ const SignUp = () => {
   ) : (
     <Container>
       {loading && <p>Loading...</p>}
-      {notificationType === "SIGN_UP_ERROR" && <p>{notificationMessage}</p>}
       <Header>Sign up with email</Header>
       <Input
         type="username"

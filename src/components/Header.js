@@ -17,11 +17,16 @@ const Header = () => {
   return (
     <Wrapper>
       <Container>
-        <Logo to="/">Poll</Logo>
+        <Menu>
+          <Logo to="/">Poll</Logo>
+          <NavLink to="/create">Create</NavLink>
+          <NavLink to="/discover">Discover</NavLink>
+          <NavLink to="/leaderboards">Leaderboards</NavLink>
+        </Menu>
         {user ? (
           <Menu>
             <NavLink to="/profile">{user.username}</NavLink>
-            <button onClick={handleSignOut}>sign out</button>
+            <Button onClick={handleSignOut}>sign out</Button>
           </Menu>
         ) : (
           <Menu>
@@ -35,19 +40,20 @@ const Header = () => {
 };
 
 const Wrapper = styled.header`
-  padding: 10px 20px;
-  background: #000000;
+  background: #2f3542;
 `;
 
 const Container = styled.div`
   max-width: 1000px;
   margin: 0px auto;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const Logo = styled(Link)`
+  margin-right: 40px;
   text-decoration: none;
   color: #ffffff;
   font-size: 32px;
@@ -60,9 +66,13 @@ const Menu = styled.nav`
 `;
 
 const NavLink = styled(Link)`
-  margin-left: 10px;
+  margin-left: 20px;
   text-decoration: none;
   color: #ffffff;
+`;
+
+const Button = styled.button`
+  margin-left: 20px;
 `;
 
 export default Header;

@@ -13,11 +13,13 @@ const API = axios.create({ baseURL: BASE_URL });
 
 API.interceptors.request.use((req) => {
   // Do something on request
+  console.log(store);
   return req;
 });
 
 API.interceptors.response.use((res) => {
   // Do something on response
+  console.log(store);
   return res;
 });
 

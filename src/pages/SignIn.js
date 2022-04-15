@@ -13,9 +13,6 @@ const SignIn = () => {
   useOauth();
 
   const { user, loading } = useSelector((state) => state.auth);
-  const [notificationType, notificationMessage] = useSelector(
-    ({ notification }) => [notification.type, notification.message]
-  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,7 +40,6 @@ const SignIn = () => {
   ) : (
     <Container>
       {loading && <p>Loading...</p>}
-      {notificationType === "SIGN_IN_ERROR" && <p>{notificationMessage}</p>}
       <Header>Sign in with email</Header>
       <Input
         type="email"

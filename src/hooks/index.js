@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 
-import { setAuthUser } from "../redux/auth";
-import { setNotification, clearNotification } from "../redux/notification";
+import { oauthSignIn } from "../redux/auth";
 
 export const useOauth = () => {
   const dispatch = useDispatch();
@@ -17,21 +16,12 @@ export const useOauth = () => {
 
     if (qs.error) {
       navigate(pathname, { replace: true });
-      dispatch(setNotification({ type: "SIGN_IN_ERROR", message: qs.error }));
-
-      const timer = setTimeout(() => {
-        dispatch(clearNotification());
-      }, 5000);
-
-      return () => {
-        dispatch(clearNotification());
-        clearTimeout(timer);
-      };
+      dispatch(oauthSignIn({ user: null, error: qs.error }));
     }
 
-    if (qs.uuid && qs.username) {
+    if (qs.user) {
       navigate(pathname, { replace: true });
-      dispatch(setAuthUser({ uuid: qs.uuid, username: qs.username }));
+      dispatch(oauthSignIn({ user: JSON.parse(qs.user), error: null }));
     }
   }, []);
 };
