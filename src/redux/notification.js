@@ -1,8 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const NOTIFICATION_TYPE_SUCCESS = "NOTIFICATION_TYPE_SUCCESS";
 export const NOTIFICATION_TYPE_WARNING = "NOTIFICATION_TYPE_WARNING";
 export const NOTIFICATION_TYPE_ERROR = "NOTIFICATION_TYPE_ERROR";
+
+export const flashNotification = createAsyncThunk(
+  "notification/flashNotification",
+  async ({ type, message }, { dispatch }) => {
+    dispatch(setNotification({ type, message }));
+
+    setTimeout(() => {
+      dispatch(clearNotification());
+    }, 5000);
+  }
+);
 
 const notificationSlice = createSlice({
   name: "notification",
@@ -21,8 +32,6 @@ const notificationSlice = createSlice({
   },
 });
 
-const { actions, reducer } = notificationSlice;
+export const { setNotification, clearNotification } = notificationSlice.actions;
 
-export const { setNotification, clearNotification } = actions;
-
-export default reducer;
+export default notificationSlice.reducer;

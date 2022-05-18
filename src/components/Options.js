@@ -6,9 +6,9 @@ import styled from "styled-components";
 import Icon from "./Icon";
 
 const Options = ({ options, setOptions }) => {
-  const setOption = (dragId, content) => {
+  const setOption = (uuid, content) => {
     const newOptions = options.map((answer) => {
-      if (answer.dragId === dragId) {
+      if (answer.uuid === uuid) {
         return { ...answer, content };
       } else {
         return answer;
@@ -19,13 +19,13 @@ const Options = ({ options, setOptions }) => {
   };
 
   const addOption = () => {
-    const newAnser = { dragId: uuidv4(), content: "" };
+    const newAnser = { uuid: uuidv4(), content: "" };
 
     setOptions([...options, newAnser]);
   };
 
-  const delOption = (dragId) => {
-    const newOptions = options.filter((answer) => answer.dragId !== dragId);
+  const delOption = (uuid) => {
+    const newOptions = options.filter((answer) => answer.uuid !== uuid);
 
     setOptions(newOptions);
   };
@@ -64,8 +64,8 @@ const Options = ({ options, setOptions }) => {
             >
               {options.map((answer, index) => (
                 <Draggable
-                  key={answer.dragId}
-                  draggableId={answer.dragId}
+                  key={answer.uuid}
+                  draggableId={answer.uuid}
                   index={index}
                 >
                   {(provided, snapshot) => (
@@ -83,18 +83,14 @@ const Options = ({ options, setOptions }) => {
                         type="text"
                         placeholder={`Option ${index + 1}`}
                         value={answer.content}
-                        onChange={(e) =>
-                          setOption(answer.dragId, e.target.value)
-                        }
+                        onChange={(e) => setOption(answer.uuid, e.target.value)}
                       />
                       <Controlls>
                         <DragHandle>
                           <Icon icon={["far", "grip-lines"]} />
                         </DragHandle>
                         {options.length > 2 && (
-                          <DeleteButton
-                            onClick={() => delOption(answer.dragId)}
-                          >
+                          <DeleteButton onClick={() => delOption(answer.uuid)}>
                             <Icon icon={["far", "times"]} />
                           </DeleteButton>
                         )}

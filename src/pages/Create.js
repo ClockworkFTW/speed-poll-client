@@ -1,16 +1,48 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
 import Options from "../components/Options";
 
+import * as pollAPI from "../api/poll";
+
+import {
+  flashNotification,
+  NOTIFICATION_TYPE_SUCCESS,
+  NOTIFICATION_TYPE_ERROR,
+} from "../redux/notification";
+
 const Create = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState([
-    { dragId: uuidv4(), content: "" },
-    { dragId: uuidv4(), content: "" },
+    { uuid: uuidv4(), content: "" },
+    { uuid: uuidv4(), content: "" },
   ]);
+
+  const handleCreatePoll = async () => {
+    try {
+      const poll = await pollAPI.createPoll({ title, description, options });
+
+      dispatch(
+        flashNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: "Poll created successfully!",
+        })
+      );
+
+      navigate(`/poll/${poll.id}`, { state: { poll } });
+    } catch (error) {
+      dispatch(
+        flashNotification({ type: NOTIFICATION_TYPE_ERROR, message: error })
+      );
+    }
+  };
 
   return (
     <Container>
@@ -38,6 +70,7 @@ const Create = () => {
         <Label htmlFor="option-1">Answer Options</Label>
         <Options options={options} setOptions={setOptions} />
       </Group>
+      <button onClick={handleCreatePoll}>Create Poll</button>
     </Container>
   );
 };

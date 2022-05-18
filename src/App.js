@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Create from "./pages/Create";
+import Poll from "./pages/Poll";
+import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +24,8 @@ const App = () => (
       <Route path="/" element={<Home />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/poll/:pollId" element={<Poll />} />
+      <Route path="/discover" element={<Discover />} />
       <Route element={<ProtectedRoute redirectPath="/sign-in" />}>
         <Route path="/create" element={<Create />} />
         <Route path="/profile" element={<Profile />} />

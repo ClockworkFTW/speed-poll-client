@@ -14,7 +14,7 @@ import Icon from "./Icon";
 const Header = () => {
   const dispatch = useDispatch();
 
-  const handleClose = () => {
+  const handleCloseNotification = () => {
     dispatch(clearNotification());
   };
 
@@ -45,22 +45,28 @@ const Header = () => {
   }
 
   return message ? (
-    <Container color={color} background={background}>
-      <span onClick={handleClose}>
-        <Icon icon={["far", icon]} style={{ margin: "0px 10px 0px 0px" }} />
-        {message}
-      </span>
-      <button onClick={handleClose}>close</button>
-    </Container>
+    <Wrapper>
+      <Container color={color} background={background}>
+        <span>
+          <Icon icon={["far", icon]} style={{ margin: "0px 10px 0px 0px" }} />
+          {message}
+        </span>
+        <button onClick={handleCloseNotification}>close</button>
+      </Container>
+    </Wrapper>
   ) : null;
 };
+
+const Wrapper = styled.div`
+  max-width: 1000px;
+  margin: 20px auto;
+`;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1000px;
-  margin: 20px auto;
+  margin: 0px 20px;
   padding: 10px 20px;
   border-radius: 4px;
   color: ${({ color }) => color};
