@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { BASE_URL } from "../api";
 import * as pollAPI from "../api/poll";
 
 import PollMetadata from "../components/PollMetadata";
 import PollOptions from "../components/PollOptions";
-import PollChart from "../components/PollChart";
 import PollResults from "../components/PollResults";
+import PollGeography from "../components/PollGeography";
 
 import {
   flashNotification,
@@ -21,7 +22,9 @@ const Poll = () => {
   const { pollId } = useParams();
 
   const [poll, setPoll] = useState(null);
+
   const [resultsVisible, setResultsVisible] = useState(false);
+  const [resultsLive, setResultsLive] = useState(true);
 
   useEffect(() => {
     const getPoll = async () => {
@@ -42,20 +45,44 @@ const Poll = () => {
     getPoll();
   }, []);
 
+  useEffect(() => {
+    if (resultsVisible && resultsLive) {
+      const eventSource = new EventSource(`${BASE_URL}/poll/live/${pollId}`, {
+        withCredentials: true,
+      });
+
+      eventSource.onmessage = (e) => {
+        setPoll(JSON.parse(e.data));
+      };
+
+      eventSource.onerror = (e) => {
+        setResultsLive(false);
+      };
+
+      return () => {
+        eventSource.close();
+      };
+    }
+  }, [resultsVisible, resultsLive]);
+
   return poll ? (
     <Container>
       <PollMetadata poll={poll} />
       {resultsVisible ? (
         <>
-          <PollChart options={poll.options} />
+          <button onClick={() => setResultsLive(true)}>
+            {resultsLive ? "Live Results" : "Refresh Results"}
+          </button>
+          <button onClick={() => setResultsVisible(false)}>Back to Poll</button>
           <PollResults options={poll.options} />
+          <PollGeography options={poll.options} />
         </>
       ) : (
-        <PollOptions poll={poll} setPoll={setPoll} />
+        <>
+          <PollOptions poll={poll} setPoll={setPoll} />
+          <button onClick={() => setResultsVisible(true)}>Show Results</button>
+        </>
       )}
-      <button onClick={() => setResultsVisible(!resultsVisible)}>
-        {resultsVisible ? "Back to Poll" : "Show Results"}
-      </button>
     </Container>
   ) : null;
 };

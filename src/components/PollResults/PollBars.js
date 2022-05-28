@@ -10,7 +10,7 @@ const colorScale = [
   "#3742fa",
 ];
 
-const PollResults = ({ options }) => {
+const PollResults = ({ options, active, setActive }) => {
   // Sort results
   const results = options.sort((a, b) => b.votes.length - a.votes.length);
 
@@ -26,7 +26,11 @@ const PollResults = ({ options }) => {
         ).toFixed(2);
 
         return (
-          <Result>
+          <Result
+            key={i}
+            onMouseEnter={() => setActive(content)}
+            onMouseLeave={() => setActive(null)}
+          >
             <Statistics>
               <span>
                 {i + 1} - {content}
@@ -36,7 +40,11 @@ const PollResults = ({ options }) => {
               </span>
             </Statistics>
             <BarContainer>
-              <BarContent percent={percent} colorIndex={colorIndex} />
+              <BarContent
+                percent={percent}
+                colorIndex={colorIndex}
+                isActive={content === active}
+              />
             </BarContainer>
           </Result>
         );
@@ -60,7 +68,7 @@ const Statistics = styled.div`
 const BarContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 10px;
+  height: 20px;
   border-radius: 4px;
   background-color: #ced6e0;
   overflow: hidden;
@@ -72,7 +80,8 @@ const BarContent = styled.div`
   bottom: 0px;
   left: 0px;
   width: ${({ percent }) => `${percent}%`};
-  background-color: ${({ colorIndex }) => colorScale[colorIndex]};
+  background-color: ${({ colorIndex, isActive }) =>
+    isActive ? "#2f3542" : colorScale[colorIndex]};
 `;
 
 export default PollResults;

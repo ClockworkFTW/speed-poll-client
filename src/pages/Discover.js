@@ -12,7 +12,6 @@ const Create = () => {
   useEffect(() => {
     const getPolls = async () => {
       const fetchedPolls = await pollAPI.getPolls();
-      console.log(fetchedPolls);
       setPolls(fetchedPolls);
     };
 

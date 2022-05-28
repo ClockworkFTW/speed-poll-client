@@ -1,4 +1,5 @@
 import React from "react";
+import { decode } from "he";
 
 const PollMetadata = ({ poll }) => {
   const createdAt = new Date(poll.createdAt).toLocaleDateString(undefined, {
@@ -10,7 +11,7 @@ const PollMetadata = ({ poll }) => {
 
   return (
     <div>
-      <h1>{poll.title}</h1>
+      <h1>{decode(poll.title)}</h1>
       <p>
         By {poll.user.username} - {createdAt}
       </p>
