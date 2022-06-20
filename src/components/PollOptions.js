@@ -13,14 +13,14 @@ import {
 const PollOptions = ({ poll, setPoll }) => {
   const dispatch = useDispatch();
 
-  const [vote, setVote] = useState(null);
+  const [optionId, setOptionId] = useState(null);
 
   const handleCastVote = async (e) => {
     try {
       e.preventDefault();
 
-      const poll = await voteAPI.castVote(vote);
-      setPoll(poll);
+      const updatedPoll = await voteAPI.castVote(poll.id, optionId);
+      setPoll(updatedPoll);
 
       dispatch(
         flashNotification({
@@ -39,20 +39,22 @@ const PollOptions = ({ poll, setPoll }) => {
     <form onSubmit={handleCastVote}>
       <p>Make a choice:</p>
       <ul>
-        {poll.options.map((option, index) => (
-          <li key={index}>
-            <label htmlFor={option.uuid}>
-              <input
-                id={option.uuid}
-                type="radio"
-                value={option.content}
-                checked={option.uuid === vote}
-                onChange={() => setVote(option.uuid)}
-              />
-              {decode(option.content)}
-            </label>
-          </li>
-        ))}
+        {poll.options
+          .sort((a, b) => a.index - b.index)
+          .map((option, index) => (
+            <li key={index}>
+              <label htmlFor={option.id}>
+                <input
+                  id={option.id}
+                  type="radio"
+                  value={option.content}
+                  checked={option.id === optionId}
+                  onChange={() => setOptionId(option.id)}
+                />
+                {decode(option.content)}
+              </label>
+            </li>
+          ))}
       </ul>
       <button type="submit">Cast Vote</button>
     </form>

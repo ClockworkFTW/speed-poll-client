@@ -4,13 +4,17 @@ import { createRoot } from "react-dom/client";
 // App
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./normalize.css";
+
+// Style
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, theme } from "./style";
 
 // Redux
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./redux";
 import { injectStore } from "./api";
+
 injectStore(store);
 
 // Render
@@ -20,7 +24,10 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
     </PersistGate>
   </Provider>
 );

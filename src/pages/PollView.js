@@ -6,10 +6,9 @@ import styled from "styled-components";
 import { BASE_URL } from "../api";
 import * as pollAPI from "../api/poll";
 
-import PollMetadata from "../components/PollMetadata";
+import Metadata from "../components/PublicPolls/Metadata";
 import PollOptions from "../components/PollOptions";
-import PollResults from "../components/PollResults";
-import PollGeography from "../components/PollGeography";
+import Results from "../components/Results";
 
 import {
   flashNotification,
@@ -67,15 +66,19 @@ const Poll = () => {
 
   return poll ? (
     <Container>
-      <PollMetadata poll={poll} />
+      <h1>{poll.question}</h1>
+      <Metadata
+        user={poll.user}
+        createdAt={poll.createdAt}
+        linkToProfile={true}
+      />
       {resultsVisible ? (
         <>
           <button onClick={() => setResultsLive(true)}>
             {resultsLive ? "Live Results" : "Refresh Results"}
           </button>
           <button onClick={() => setResultsVisible(false)}>Back to Poll</button>
-          <PollResults options={poll.options} />
-          <PollGeography options={poll.options} />
+          <Results poll={poll} />
         </>
       ) : (
         <>
@@ -88,7 +91,7 @@ const Poll = () => {
 };
 
 const Container = styled.div`
-  max-width: 1000px;
+  max-width: 860px;
   margin: 0px auto;
   padding: 20px;
 `;

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const NotFound = () => (
+const Leaderboard = () => (
   <Container>
-    <h1>Page not found...</h1>
+    <h1>Leaderboard</h1>
   </Container>
 );
 
@@ -13,4 +13,4 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-export default NotFound;
+export default Leaderboard;

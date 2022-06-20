@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const Profile = () => (
+const PageHeader = ({ main, sub }) => (
   <Container>
-    <h1>Profile</h1>
+    <h1>{main}</h1>
+    <p>{sub}</p>
   </Container>
 );
 
 const Container = styled.div`
-  max-width: 860px;
-  margin: 0px auto;
-  padding: 20px;
+  margin-bottom: 20px;
 `;
 
-export default Profile;
+export default PageHeader;

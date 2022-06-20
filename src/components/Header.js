@@ -18,10 +18,10 @@ const Header = () => {
     <Wrapper>
       <Container>
         <Menu>
-          <Logo to="/">Poll</Logo>
-          <NavLink to="/create">Create</NavLink>
-          <NavLink to="/discover">Discover</NavLink>
-          <NavLink to="/leaderboards">Leaderboards</NavLink>
+          <Logo to="/">Speed Poll</Logo>
+          <NavLink to="/create">Create Poll</NavLink>
+          <NavLink to="/leaderboard">Leaderboard</NavLink>
+          <NavLink to="/poll/demo">Demo</NavLink>
         </Menu>
         {user ? (
           <Menu>
@@ -40,11 +40,11 @@ const Header = () => {
 };
 
 const Wrapper = styled.header`
-  background: #2f3542;
+  background: #ffffff;
 `;
 
 const Container = styled.div`
-  max-width: 1000px;
+  max-width: 860px;
   margin: 0px auto;
   padding: 10px 20px;
   display: flex;
@@ -54,8 +54,6 @@ const Container = styled.div`
 
 const Logo = styled(Link)`
   margin-right: 40px;
-  text-decoration: none;
-  color: #ffffff;
   font-size: 32px;
   font-weight: 700;
 `;
@@ -67,8 +65,6 @@ const Menu = styled.nav`
 
 const NavLink = styled(Link)`
   margin-left: 20px;
-  text-decoration: none;
-  color: #ffffff;
 `;
 
 const Button = styled.button`
