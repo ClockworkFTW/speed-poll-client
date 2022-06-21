@@ -25,8 +25,8 @@ const Create = () => {
   const [question, setQuestion] = useState("");
 
   const [options, setOptions] = useState([
-    { uuid: uuidv4(), content: "" },
-    { uuid: uuidv4(), content: "" },
+    { uuid: uuidv4(), content: "", color: "red" },
+    { uuid: uuidv4(), content: "", color: "green" },
   ]);
 
   const [settings, setSettings] = useState({
@@ -83,7 +83,7 @@ const Create = () => {
           <Label>Poll Settings</Label>
           <Settings settings={settings} setSettings={setSettings} />
         </Group>
-        <button onClick={handleCreatePoll}>Create Poll</button>
+        <Button onClick={handleCreatePoll}>Create Poll</Button>
       </Container>
     </DndProvider>
   );
@@ -96,10 +96,10 @@ const Container = styled.div`
 `;
 
 const Group = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 
-const Label = styled.label`
+const Label = styled.h4`
   display: block;
   margin-bottom: 6px;
 `;
@@ -109,10 +109,26 @@ const TextArea = styled.textarea`
   width: 100%;
   padding: 12px 16px;
   outline: none;
-  border: none;
+  border: 2px solid transparent;
   border-radius: 4px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 6%);
+  :focus {
+    border: ${({ theme }) => `solid 2px ${theme.blue["500"]}`};
+  }
+`;
+
+const Button = styled.button`
+  padding: 12px 16px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.blue["500"]};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export default Create;

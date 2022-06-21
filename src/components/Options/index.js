@@ -2,14 +2,25 @@ import React, { memo, useCallback } from "react";
 import update from "immutability-helper";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
 import Option from "./Option";
+
+import { colors } from "./ColorPicker/Colors";
 
 const Options = memo(({ options, setOptions }) => {
   const [_, drop] = useDrop(() => ({ accept: "OPTION" }));
 
-  const addOption = () =>
-    setOptions([...options, { uuid: uuidv4(), content: "" }]);
+  const addOption = () => {
+    setOptions([
+      ...options,
+      {
+        uuid: uuidv4(),
+        content: "",
+        color: colors[Math.floor(Math.random() * colors.length)],
+      },
+    ]);
+  };
 
   const delOption = (uuid) => {
     if (options.length === 2) return;
@@ -42,16 +53,17 @@ const Options = memo(({ options, setOptions }) => {
     [findOption, options, setOptions]
   );
 
-  const setContent = (uuid, content) =>
+  const setProp = (uuid, prop, value) => {
     setOptions(
       options.map((option) => {
         if (option.uuid === uuid) {
-          return { ...option, content };
+          return { ...option, [prop]: value };
         } else {
           return option;
         }
       })
     );
+  };
 
   return (
     <>
@@ -61,17 +73,31 @@ const Options = memo(({ options, setOptions }) => {
             key={option.uuid}
             uuid={option.uuid}
             content={option.content}
+            color={option.color}
             delOption={delOption}
             findOption={findOption}
             moveOption={moveOption}
-            setContent={setContent}
+            setProp={setProp}
             index={index}
           />
         ))}
       </div>
-      <button onClick={addOption}>Add Option</button>
+      <Button onClick={addOption}>Add Option</Button>
     </>
   );
 });
+
+const Button = styled.button`
+  padding: 12px 16px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.blue["500"]};
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 export default Options;

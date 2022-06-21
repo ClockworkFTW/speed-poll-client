@@ -26,12 +26,12 @@ const Header = () => {
         {user ? (
           <Menu>
             <NavLink to="/profile">{user.username}</NavLink>
-            <Button onClick={handleSignOut}>sign out</Button>
+            <Button onClick={handleSignOut}>Sign Out</Button>
           </Menu>
         ) : (
           <Menu>
-            <NavLink to="/sign-in">sign in</NavLink>
-            <NavLink to="/sign-up">sign up</NavLink>
+            <NavLink to="/sign-in">Sign In</NavLink>
+            <NavLink to="/sign-up">Sign Up</NavLink>
           </Menu>
         )}
       </Container>
@@ -46,7 +46,7 @@ const Wrapper = styled.header`
 const Container = styled.div`
   max-width: 860px;
   margin: 0px auto;
-  padding: 10px 20px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,6 +69,16 @@ const NavLink = styled(Link)`
 
 const Button = styled.button`
   margin-left: 20px;
+  padding: 12px 16px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.blue["500"]};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export default Header;

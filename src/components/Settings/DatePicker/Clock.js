@@ -54,8 +54,10 @@ const Container = styled.div`
 const Column = styled.div`
   margin: 0px 3px;
   overflow-y: scroll;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
   ::-webkit-scrollbar {
-    width: 0 !important;
+    display: none; /* for Chrome, Safari, and Opera */
   }
 `;
 
@@ -67,13 +69,14 @@ const Cell = styled.div`
   height: 36px;
   border-radius: 4px;
   font-weight: ${({ active }) => (active ? "700" : "400")};
-  color: ${({ active }) => (active ? "#ffffff" : "#000000")};
-  background-color: ${({ active }) => (active ? "#4199ff" : "none")};
+  color: ${({ theme, active }) => (active ? theme.white : theme.black)};
+  background-color: ${({ theme, active }) =>
+    active ? theme.blue["500"] : "none"};
   :hover {
     cursor: pointer;
     font-weight: 700;
-    color: #4199ff;
-    background-color: #b3d6ff;
+    color: ${({ theme }) => theme.blue["500"]};
+    background-color: ${({ theme }) => theme.blue["200"]};
   }
 `;
 

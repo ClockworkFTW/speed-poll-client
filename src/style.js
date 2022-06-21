@@ -69,7 +69,7 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: ${({ theme }) => theme.neutral["800"]};
     :hover {
-      color: ${({ theme }) => theme.indigo["500"]};
+      color: ${({ theme }) => theme.blue["500"]};
     }
   }
 

@@ -11,58 +11,90 @@ const Settings = ({ settings, setSettings }) => {
   };
 
   return (
-    <Wrapper>
-      <Container>
-        <Checkbox
-          label="Private (only via direct link)"
-          value={settings.isPrivate}
-          onChange={() => toggleSetting("isPrivate")}
+    <Container>
+      <Column>
+        <Setting>
+          <Checkbox
+            label={`Set End Date (${dateFns.format(
+              settings.endDate,
+              "MM/dd/yyyy p"
+            )})`}
+            value={settings.setEndDate}
+            onChange={() => toggleSetting("setEndDate")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Private Poll"
+            value={settings.isPrivate}
+            onChange={() => toggleSetting("isPrivate")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Allow Multiple Votes"
+            value={settings.multipleVotes}
+            onChange={() => toggleSetting("multipleVotes")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Add Comments"
+            value={settings.enableComments}
+            onChange={() => toggleSetting("enableComments")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Login to Vote"
+            value={settings.requireAccount}
+            onChange={() => toggleSetting("requireAccount")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Hide results"
+            value={settings.hideResults}
+            onChange={() => toggleSetting("hideResults")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Enable Captcha"
+            value={settings.hideResults}
+            onChange={() => toggleSetting("hideResults")}
+          />
+        </Setting>
+      </Column>
+      <Column>
+        <DatePicker
+          endDate={settings.endDate}
+          setEndDate={(endDate) => setSettings({ ...settings, endDate })}
         />
-        <Checkbox
-          label="Allow multiple votes"
-          value={settings.multipleVotes}
-          onChange={() => toggleSetting("multipleVotes")}
-        />
-        <Checkbox
-          label="Enable Comments"
-          value={settings.enableComments}
-          onChange={() => toggleSetting("enableComments")}
-        />
-        <Checkbox
-          label="Require participants name"
-          value={settings.requireAccount}
-          onChange={() => toggleSetting("requireAccount")}
-        />
-        <Checkbox
-          label="Hide results"
-          value={settings.hideResults}
-          onChange={() => toggleSetting("hideResults")}
-        />
-        <Checkbox
-          label={`Set end date (${dateFns.format(
-            settings.endDate,
-            "dd MMM YYY p"
-          )})`}
-          value={settings.setEndDate}
-          onChange={() => toggleSetting("setEndDate")}
-        />
-      </Container>
-      <DatePicker
-        endDate={settings.endDate}
-        setEndDate={(endDate) => setSettings({ ...settings, endDate })}
-      />
-    </Wrapper>
+      </Column>
+    </Container>
   );
 };
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
 `;
 
-const Container = styled.div`
-  flex-grow: 1;
-  margin-right: 24px;
+const Column = styled.div`
+  :after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+`;
+
+const Setting = styled.div`
+  float: left;
+  margin: 0px 12px 12px 0px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 6%);
 `;
 
 export default Settings;

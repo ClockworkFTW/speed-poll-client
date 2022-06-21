@@ -122,17 +122,20 @@ const Day = styled.div`
   align-items: center;
   border-radius: 4px;
   font-weight: ${({ isSameDay }) => (isSameDay ? "700" : "400")};
-  background-color: ${({ isSameDay }) => (isSameDay ? "#4199ff" : "none")};
-  color: ${({ isSameDay, isSameMonth }) => {
-    if (isSameDay) return "#ffffff";
-    if (isSameMonth) return "#000000";
-    return "#929292;";
+  background-color: ${({ theme, isSameDay }) =>
+    isSameDay ? theme.blue["500"] : "none"};
+  color: ${({ theme, isSameDay, isSameMonth }) => {
+    if (isSameDay) return theme.white;
+    if (isSameMonth) return theme.neutral["800"];
+    return theme.neutral["400"];
   }};
   :hover {
     cursor: pointer;
     font-weight: 700;
-    background-color: ${({ isSameDay }) => (isSameDay ? "#4199ff" : "#b3d6ff")};
-    color: ${({ isSameDay }) => (isSameDay ? "#ffffff" : "#4199ff")};
+    background-color: ${({ theme, isSameDay }) =>
+      isSameDay ? theme.blue["500"] : theme.blue["200"]};
+    color: ${({ theme, isSameDay }) =>
+      isSameDay ? theme.white : theme.blue["500"]};
   }
 `;
 

@@ -9,7 +9,7 @@ const PageHeader = ({ main, sub }) => (
 );
 
 const Container = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 
 export default PageHeader;
