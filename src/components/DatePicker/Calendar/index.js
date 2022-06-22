@@ -19,7 +19,7 @@ const months = [
   "December",
 ];
 
-const Calendar = ({ endDate, setEndDate }) => {
+const Calendar = ({ date, setDate }) => {
   const [offset, setOffset] = useState(0);
   const [calendar, setCalendar] = useState(null);
 
@@ -60,12 +60,12 @@ const Calendar = ({ endDate, setEndDate }) => {
         {calendar.map((day, index) => (
           <Day
             key={index}
-            isSameDay={dateFns.isSameDay(day, endDate)}
+            isSameDay={dateFns.isSameDay(day, date)}
             isSameMonth={dateFns.isSameMonth(
               day,
               dateFns.addMonths(new Date(), offset)
             )}
-            onClick={() => setEndDate(day)}
+            onClick={() => setDate(day)}
           >
             {dateFns.getDate(day)}
           </Day>

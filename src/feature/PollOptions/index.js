@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { decode } from "he";
 
-import * as voteAPI from "../api/vote";
+import * as voteAPI from "../../api/vote";
 
 import {
   flashNotification,
   NOTIFICATION_TYPE_SUCCESS,
   NOTIFICATION_TYPE_ERROR,
-} from "../redux/notification";
+} from "../../redux/notification";
 
 const PollOptions = ({ poll, setPoll }) => {
   const dispatch = useDispatch();

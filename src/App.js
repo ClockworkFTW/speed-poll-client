@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Components
-import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 import Notification from "./components/Notification";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -18,7 +18,7 @@ import NotFound from "./pages/NotFound";
 
 const App = () => (
   <BrowserRouter>
-    <Header />
+    <Navigation />
     <Notification />
     <Routes>
       <Route path="/" element={<Home />} />

@@ -2,10 +2,10 @@ import React from "react";
 import * as dateFns from "date-fns";
 import styled from "styled-components";
 
-import Checkbox from "./Checkbox";
-import DatePicker from "./DatePicker";
+import Checkbox from "../../components/Checkbox";
+import DatePicker from "../../components/DatePicker";
 
-const Settings = ({ settings, setSettings }) => {
+const PollSettings = ({ settings, setSettings }) => {
   const toggleSetting = (setting) => {
     setSettings({ ...settings, [setting]: !settings[setting] });
   };
@@ -26,29 +26,29 @@ const Settings = ({ settings, setSettings }) => {
         <Setting>
           <Checkbox
             label="Private Poll"
-            value={settings.isPrivate}
-            onChange={() => toggleSetting("isPrivate")}
+            value={settings.privatePoll}
+            onChange={() => toggleSetting("privatePoll")}
           />
         </Setting>
         <Setting>
           <Checkbox
             label="Allow Multiple Votes"
-            value={settings.multipleVotes}
-            onChange={() => toggleSetting("multipleVotes")}
+            value={settings.allowMultipleVotes}
+            onChange={() => toggleSetting("allowMultipleVotes")}
           />
         </Setting>
         <Setting>
           <Checkbox
             label="Add Comments"
-            value={settings.enableComments}
-            onChange={() => toggleSetting("enableComments")}
+            value={settings.addComments}
+            onChange={() => toggleSetting("addComments")}
           />
         </Setting>
         <Setting>
           <Checkbox
             label="Login to Vote"
-            value={settings.requireAccount}
-            onChange={() => toggleSetting("requireAccount")}
+            value={settings.loginToVote}
+            onChange={() => toggleSetting("loginToVote")}
           />
         </Setting>
         <Setting>
@@ -61,15 +61,15 @@ const Settings = ({ settings, setSettings }) => {
         <Setting>
           <Checkbox
             label="Enable Captcha"
-            value={settings.hideResults}
-            onChange={() => toggleSetting("hideResults")}
+            value={settings.enableCaptcha}
+            onChange={() => toggleSetting("enableCaptcha")}
           />
         </Setting>
       </Column>
       <Column>
         <DatePicker
-          endDate={settings.endDate}
-          setEndDate={(endDate) => setSettings({ ...settings, endDate })}
+          date={settings.endDate}
+          setDate={(endDate) => setSettings({ ...settings, endDate })}
         />
       </Column>
     </Container>
@@ -97,4 +97,4 @@ const Setting = styled.div`
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 6%);
 `;
 
-export default Settings;
+export default PollSettings;

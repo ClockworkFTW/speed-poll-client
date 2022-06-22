@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { v4 as uuidv4 } from "uuid";
+import * as dateFns from "date-fns";
 import styled from "styled-components";
 
 import PageHeader from "../components/PageHeader";
-import Options from "../components/Options";
-import Settings from "../components/Settings";
+import Options from "../feature/Options";
+import PollSettings from "../feature/PollSettings";
 
 import * as pollAPI from "../api/poll";
 
@@ -30,13 +31,14 @@ const Create = () => {
   ]);
 
   const [settings, setSettings] = useState({
-    isPrivate: false,
-    multipleVotes: false,
-    enableComments: false,
-    requireAccount: false,
+    privatePoll: false,
+    allowMultipleVotes: false,
+    addComments: false,
+    loginToVote: false,
     hideResults: false,
+    enableCaptcha: false,
     setEndDate: false,
-    endDate: new Date(),
+    endDate: dateFns.startOfTomorrow(),
   });
 
   const handleCreatePoll = async () => {
@@ -81,7 +83,7 @@ const Create = () => {
         </Group>
         <Group>
           <Label>Poll Settings</Label>
-          <Settings settings={settings} setSettings={setSettings} />
+          <PollSettings settings={settings} setSettings={setSettings} />
         </Group>
         <Button onClick={handleCreatePoll}>Create Poll</Button>
       </Container>

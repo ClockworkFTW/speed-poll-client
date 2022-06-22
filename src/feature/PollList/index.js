@@ -7,7 +7,7 @@ import Metadata from "./Metadata";
 import Statistics from "./Statistics";
 import Status from "./Status";
 
-const PublicPolls = ({ polls }) => (
+const PollList = ({ polls }) => (
   <ul>
     {polls.map((poll) => (
       <Link to={`/poll/${poll.id}`}>
@@ -49,4 +49,4 @@ const Bot = styled.div`
   margin-top: 20px;
 `;
 
-export default PublicPolls;
+export default PollList;

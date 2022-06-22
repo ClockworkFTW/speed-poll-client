@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../redux/auth";
+import { signOut } from "../../redux/auth";
 
-const Header = () => {
+const Navigation = () => {
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
@@ -81,4 +81,4 @@ const Button = styled.button`
   }
 `;
 
-export default Header;
+export default Navigation;

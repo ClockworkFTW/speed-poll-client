@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Icon from "../Icon";
+import Icon from "../../components/Icon";
 
 const Statistics = ({ poll }) => {
   const voteCount = poll.options.reduce(

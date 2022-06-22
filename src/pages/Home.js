@@ -4,7 +4,7 @@ import styled from "styled-components";
 import * as pollAPI from "../api/poll";
 
 import PageHeader from "../components/PageHeader";
-import PublicPolls from "../components/PublicPolls";
+import PollList from "../feature/PollList";
 
 const Home = () => {
   const [polls, setPolls] = useState([]);
@@ -24,7 +24,7 @@ const Home = () => {
         main="Public Polls"
         sub="Below are the public polls created by Speed Poll members."
       />
-      <PublicPolls polls={polls} />
+      <PollList polls={polls} />
     </Container>
   );
 };

@@ -7,9 +7,9 @@ import {
   NOTIFICATION_TYPE_SUCCESS,
   NOTIFICATION_TYPE_WARNING,
   NOTIFICATION_TYPE_ERROR,
-} from "../redux/notification";
+} from "../../redux/notification";
 
-import Icon from "./Icon";
+import Icon from "../../components/Icon";
 
 const Header = () => {
   const dispatch = useDispatch();

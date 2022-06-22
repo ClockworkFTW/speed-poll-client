@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const Checkbox = ({ label, value, onChange }) => {
-  return (
-    <Container>
-      <Input type="checkbox" checked={value} onChange={onChange} />
-      {label}
-    </Container>
-  );
-};
+const Checkbox = ({ label, value, onChange }) => (
+  <Container>
+    <Input type="checkbox" checked={value} onChange={onChange} />
+    {label}
+  </Container>
+);
 
 const Container = styled.label`
   display: block;

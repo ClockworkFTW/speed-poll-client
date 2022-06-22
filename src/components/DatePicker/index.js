@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Calendar from "./Calendar";
 import Clock from "./Clock";
 
-const DatePicker = ({ endDate, setEndDate }) => (
+const DatePicker = ({ date, setDate }) => (
   <Container>
-    <Calendar endDate={endDate} setEndDate={setEndDate} />
-    <Clock endDate={endDate} setEndDate={setEndDate} />
+    <Calendar date={date} setDate={setDate} />
+    <Clock date={date} setDate={setDate} />
   </Container>
 );
 

@@ -1,9 +1,9 @@
 import React from "react";
 
-const Results = ({ poll }) => (
+const PollResults = ({ poll }) => (
   <div>
     <p>results</p>
   </div>
 );
 
-export default Results;
+export default PollResults;

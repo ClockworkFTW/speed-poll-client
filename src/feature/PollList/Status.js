@@ -2,7 +2,7 @@ import React from "react";
 import * as dateFns from "date-fns";
 import styled from "styled-components";
 
-import Icon from "../Icon";
+import Icon from "../../components/Icon";
 
 const Status = ({ createdAt }) => {
   const isLive = dateFns.isAfter(new Date(createdAt), new Date());

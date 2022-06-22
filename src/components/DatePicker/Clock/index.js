@@ -2,15 +2,15 @@ import React from "react";
 import * as dateFns from "date-fns";
 import styled from "styled-components";
 
-const Clock = ({ endDate, setEndDate }) => {
-  // Generate array of 24 hours starting at endDate hour
+const Clock = ({ date, setDate }) => {
+  // Generate array of 24 hours starting at date hour
   const hours = [...Array(24)].map(
-    (_, hour) => (hour + dateFns.getHours(endDate)) % 24
+    (_, hour) => (hour + dateFns.getHours(date)) % 24
   );
 
-  // Generate array of 60 minutes starting at endDate minute
+  // Generate array of 60 minutes starting at date minute
   const minutes = [...Array(60)].map(
-    (_, minute) => (minute + dateFns.getMinutes(endDate)) % 60
+    (_, minute) => (minute + dateFns.getMinutes(date)) % 60
   );
 
   return (
@@ -19,8 +19,8 @@ const Clock = ({ endDate, setEndDate }) => {
         {hours.map((hour) => (
           <Cell
             key={hour}
-            active={hour === dateFns.getHours(endDate)}
-            onClick={() => setEndDate(dateFns.setHours(endDate, hour))}
+            active={hour === dateFns.getHours(date)}
+            onClick={() => setDate(dateFns.setHours(date, hour))}
           >
             {hour.toString().padStart(2, "0")}
           </Cell>
@@ -30,8 +30,8 @@ const Clock = ({ endDate, setEndDate }) => {
         {minutes.map((minute) => (
           <Cell
             key={minute}
-            active={minute === dateFns.getMinutes(endDate)}
-            onClick={() => setEndDate(dateFns.setMinutes(endDate, minute))}
+            active={minute === dateFns.getMinutes(date)}
+            onClick={() => setDate(dateFns.setMinutes(date, minute))}
           >
             {minute.toString().padStart(2, "0")}
           </Cell>

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
+import { decode } from "he";
 import styled from "styled-components";
 
 import { BASE_URL } from "../api";
 import * as pollAPI from "../api/poll";
 
-import Metadata from "../components/PublicPolls/Metadata";
-import PollOptions from "../components/PollOptions";
-import Results from "../components/Results";
+import Metadata from "../feature/PollList/Metadata";
+import PollOptions from "../feature/PollOptions";
+import PollResults from "../feature/PollResults";
 
 import {
   flashNotification,
@@ -66,7 +67,7 @@ const Poll = () => {
 
   return poll ? (
     <Container>
-      <h1>{poll.question}</h1>
+      <h1>{decode(poll.question)}</h1>
       <Metadata
         user={poll.user}
         createdAt={poll.createdAt}
@@ -78,7 +79,7 @@ const Poll = () => {
             {resultsLive ? "Live Results" : "Refresh Results"}
           </button>
           <button onClick={() => setResultsVisible(false)}>Back to Poll</button>
-          <Results poll={poll} />
+          <PollResults poll={poll} />
         </>
       ) : (
         <>
