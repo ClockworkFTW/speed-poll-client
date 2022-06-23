@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ redirectPath }) => {
+export const ProtectedRoute = ({ redirectPath }) => {
   const { user } = useSelector((state) => state.auth);
 
   if (!user) {
@@ -11,5 +11,3 @@ const ProtectedRoute = ({ redirectPath }) => {
 
   return <Outlet />;
 };
-
-export default ProtectedRoute;

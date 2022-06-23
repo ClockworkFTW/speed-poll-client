@@ -10,6 +10,6 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 // Create library
 library.add(fas, far, fab);
 
-const Icon = ({ icon, style }) => <FontAwesomeIcon icon={icon} style={style} />;
-
-export default Icon;
+export const Icon = ({ icon, style }) => (
+  <FontAwesomeIcon icon={icon} style={style} />
+);

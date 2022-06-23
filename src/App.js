@@ -2,19 +2,20 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Components
-import Navigation from "./components/Navigation";
-import Notification from "./components/Notification";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { Navigation } from "./components/Navigation";
+import { Notification } from "./components/Notification";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Footer } from "./components/Footer";
 
 // Pages
-import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
-import PollForm from "./pages/PollForm";
-import PollView from "./pages/PollView";
-import Leaderboard from "./pages/Leaderboard";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
+import { Home } from "./pages/Home/Home";
+import { SignUp } from "./pages/SignUp";
+import { SignIn } from "./pages/SignIn";
+import { PollForm } from "./pages/PollForm/PollForm";
+import { PollView } from "./pages/PollView";
+import { Leaderboard } from "./pages/Leaderboard/Leaderboard";
+import { Profile } from "./pages/Profile/Profile";
+import { NotFound } from "./pages/NotFound/NotFound";
 
 const App = () => (
   <BrowserRouter>
@@ -32,6 +33,7 @@ const App = () => (
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
+    <Footer />
   </BrowserRouter>
 );
 

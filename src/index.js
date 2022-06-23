@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 
 // Style
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle, theme } from "./style";
+import { GlobalStyle, theme } from "./App.style";
 
 // Redux
 import { Provider } from "react-redux";
