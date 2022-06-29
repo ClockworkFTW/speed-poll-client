@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Link } from "react-router-dom";
 
 // API
-import { BASE_URL } from "../api";
+import { BASE_URL } from "../../api";
 
 // Redux
-import { localSignUp } from "../redux/auth";
+import { localSignUp } from "../../redux/auth";
 
 // Hooks
-import { useOauth } from "../hooks";
+import { useOauth } from "../../hooks";
+
+// Components
+import { Main } from "../../components/Main";
 
 // Styles
-import { Container, Header, Input, Button } from "./SignUp.style";
+import { Header, Input, Button } from "./SignUp.style";
 
 export const SignUp = () => {
   useOauth();
@@ -45,7 +48,7 @@ export const SignUp = () => {
   return user ? (
     <Navigate to="/" replace />
   ) : (
-    <Container>
+    <Main>
       {loading && <p>Loading...</p>}
       <Header>Sign up with email</Header>
       <Input
@@ -80,6 +83,6 @@ export const SignUp = () => {
       <p>
         Already have an account? <Link to="/sign-in">Sign in</Link>
       </p>
-    </Container>
+    </Main>
   );
 };

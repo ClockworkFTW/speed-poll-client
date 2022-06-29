@@ -12,7 +12,7 @@ import { GlobalStyle, theme } from "./App.style";
 // Redux
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, { persistor } from "./redux";
+import { store, persistor } from "./redux";
 import { injectStore } from "./api";
 
 injectStore(store);

@@ -7,13 +7,15 @@ import { Icon } from "../../../components/Icon";
 // Styles
 import { Container, Text } from "./Status.style";
 
-export const Status = ({ createdAt }) => {
-  const isLive = dateFns.isAfter(new Date(createdAt), new Date());
+export const Status = ({ endDate }) => {
+  const isLive = endDate
+    ? dateFns.isAfter(new Date(endDate), new Date())
+    : true;
 
   return (
-    <Container isLive={isLive}>
+    <Container color={isLive ? "green" : "red"}>
       <Icon icon={["fas", "circle-small"]} style={{ fontSize: "10px" }} />
-      <Text>{isLive ? "Closed" : "Live"}</Text>
+      <Text>{isLive ? "Live" : "Closed"}</Text>
     </Container>
   );
 };

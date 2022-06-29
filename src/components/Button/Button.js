@@ -4,11 +4,20 @@ import React from "react";
 import { Icon } from "../Icon";
 
 // Styles
-import { Container } from "./Button.style";
+import { ContainerPrimary, ContainerTransparent } from "./Button.style";
 
-export const Button = ({ text, icon, onClick }) => (
-  <Container onClick={onClick}>
-    {icon && <Icon icon={icon} />}
+export const ButtonPrimary = ({ text, icon, color, onClick }) => (
+  <ContainerPrimary color={color} onClick={onClick}>
+    {icon && (
+      <Icon icon={icon} style={{ marginRight: text ? "12px" : "0px" }} />
+    )}
     {text}
-  </Container>
+  </ContainerPrimary>
+);
+
+export const ButtonTransparent = ({ text, icon, color, onClick }) => (
+  <ContainerTransparent color={color} onClick={onClick}>
+    {text}
+    {icon && <Icon icon={icon} style={{ marginLeft: text ? "12px" : "0px" }} />}
+  </ContainerTransparent>
 );

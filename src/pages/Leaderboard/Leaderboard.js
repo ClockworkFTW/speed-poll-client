@@ -1,16 +1,14 @@
 import React from "react";
 
 // Components
+import { Main } from "../../components/Main";
 import { PageHeader } from "../../components/PageHeader";
 
-// Styles
-import { Container } from "../Leaderboard/Leaderboard.style";
-
 export const Leaderboard = () => (
-  <Container>
+  <Main>
     <PageHeader
       main="Leaderboard"
       sub="Poll creators with the most votes are ranked here."
     />
-  </Container>
+  </Main>
 );

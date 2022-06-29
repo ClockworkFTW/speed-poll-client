@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { v4 as uuidv4 } from "uuid";
 
 // Components
-import { Button } from "../../components/Button";
+import { ButtonPrimary } from "../../components/Button";
 import { Option } from "./Option";
 
 // Styles
@@ -94,7 +94,7 @@ const DndConsumer = memo(({ options, setOptions }) => {
           />
         ))}
       </Container>
-      <Button text="Add Option" onClick={addOption} />
+      <ButtonPrimary text="Add Option" onClick={addOption} />
     </Wrapper>
   );
 });

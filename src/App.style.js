@@ -73,9 +73,17 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  #root,
-  #__next {
+  #app {
     isolation: isolate;
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+      'header'
+      'notification'
+      'main'
+      'footer';
+    grid-template-columns: auto;
+    grid-template-rows: auto auto 1fr auto;
   }
 
 `;
@@ -350,8 +358,30 @@ const colors = {
   },
 };
 
+const hexToRGB = (h) => {
+  let r = 0,
+    g = 0,
+    b = 0;
+
+  // 3 digits
+  if (h.length === 4) {
+    r = "0x" + h[1] + h[1];
+    g = "0x" + h[2] + h[2];
+    b = "0x" + h[3] + h[3];
+
+    // 6 digits
+  } else if (h.length === 7) {
+    r = "0x" + h[1] + h[2];
+    g = "0x" + h[3] + h[4];
+    b = "0x" + h[5] + h[6];
+  }
+
+  return `rgb(${+r},${+g},${+b},0.2)`;
+};
+
 export const theme = {
   colors,
-  shadow: "0 2px 4px 0 rgb(0 0 0 / 6%)",
   radius: "4px",
+  shadow: "0 2px 4px 0 rgb(0 0 0 / 6%)",
+  coloredShadow: (color) => `0 7px 14px 0 ${hexToRGB(colors[color]["500"])}`,
 };

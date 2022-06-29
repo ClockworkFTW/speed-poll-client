@@ -23,7 +23,7 @@ export const PollList = ({ polls }) => (
           </Top>
           <Bot>
             <Statistics poll={poll} />
-            <Status createdAt={poll.createdAt} />
+            <Status endDate={poll.endDate} />
           </Bot>
         </Item>
       </Link>

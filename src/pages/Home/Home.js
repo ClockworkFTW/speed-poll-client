@@ -7,10 +7,8 @@ import * as pollAPI from "../../api/poll";
 import { PollList } from "../../features/PollList";
 
 // Components
+import { Main } from "../../components/Main";
 import { PageHeader } from "../../components/PageHeader";
-
-// Styles
-import { Container } from "./Home.style";
 
 export const Home = () => {
   const [polls, setPolls] = useState([]);
@@ -25,12 +23,12 @@ export const Home = () => {
   }, []);
 
   return (
-    <Container>
+    <Main>
       <PageHeader
         main="Public Polls"
         sub="Below are the public polls created by Speed Poll members."
       />
       <PollList polls={polls} />
-    </Container>
+    </Main>
   );
 };

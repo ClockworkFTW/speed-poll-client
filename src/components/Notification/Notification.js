@@ -15,6 +15,7 @@ import { Icon } from "../../components/Icon";
 // Styles
 import {
   Wrapper,
+  Center,
   Container,
   Content,
   Button,
@@ -52,18 +53,23 @@ export const Notification = () => {
 
   return message ? (
     <Wrapper>
-      <Container color={color}>
-        <Content>
-          <span>
-            <Icon icon={["fas", icon]} style={{ margin: "0px 10px 0px 0px" }} />
-            {message}
-          </span>
-          <Button onClick={handleCloseNotification} color={color}>
-            <Icon icon={["fas", "times"]} />
-          </Button>
-        </Content>
-        <ProgressBar color={color} />
-      </Container>
+      <Center>
+        <Container color={color}>
+          <Content>
+            <span>
+              <Icon
+                icon={["fas", icon]}
+                style={{ margin: "0px 10px 0px 0px" }}
+              />
+              {message}
+            </span>
+            <Button onClick={handleCloseNotification} color={color}>
+              <Icon icon={["fas", "times"]} />
+            </Button>
+          </Content>
+          <ProgressBar color={color} />
+        </Container>
+      </Center>
     </Wrapper>
   ) : null;
 };

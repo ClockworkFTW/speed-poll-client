@@ -1,60 +1,27 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { decode } from "he";
-
-// API
-import * as voteAPI from "../../api/vote";
-
-// Redux
-import {
-  flashNotification,
-  NOTIFICATION_TYPE_SUCCESS,
-  NOTIFICATION_TYPE_ERROR,
-} from "../../redux/notification";
+import React from "react";
 
 // Components
-import { Checkbox } from "../../components/Checkbox";
+import { Option } from "./Option";
 
-export const OptionList = ({ pollId, options, setPoll }) => {
-  const dispatch = useDispatch();
+// Styles
+import { Container } from "./OptionList.style";
 
-  const [optionId, setOptionId] = useState(null);
+export const OptionList = (props) => {
+  const { options, votes, setVotes, allowMultipleVotes } = props;
 
-  const castVote = async () => {
-    try {
-      const updatedPoll = await voteAPI.castVote(pollId, optionId);
-      setPoll(updatedPoll);
-
-      dispatch(
-        flashNotification({
-          type: NOTIFICATION_TYPE_SUCCESS,
-          message: "Vote cast successfully!",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        flashNotification({ type: NOTIFICATION_TYPE_ERROR, message: error })
-      );
-    }
-  };
+  const sortedOptions = options.sort((a, b) => a.index - b.index);
 
   return (
-    <div>
-      <p>Make a choice:</p>
-      <ul>
-        {options
-          .sort((optionA, optionB) => optionA.index - optionB.index)
-          .map((option) => (
-            <li key={option.id}>
-              <Checkbox
-                label={decode(option.content)}
-                value={option.id === optionId}
-                onChange={() => setOptionId(option.id)}
-              />
-            </li>
-          ))}
-      </ul>
-      <button onClick={castVote}>Cast Vote</button>
-    </div>
+    <Container>
+      {sortedOptions.map((option) => (
+        <Option
+          key={option.id}
+          option={option}
+          votes={votes}
+          setVotes={setVotes}
+          allowMultipleVotes={allowMultipleVotes}
+        />
+      ))}
+    </Container>
   );
 };

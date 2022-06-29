@@ -6,10 +6,12 @@ import { decode } from "he";
 // API
 import { BASE_URL } from "../../api";
 import * as pollAPI from "../../api/poll";
+import * as voteAPI from "../../api/vote";
 
 // Redux
 import {
   flashNotification,
+  NOTIFICATION_TYPE_SUCCESS,
   NOTIFICATION_TYPE_ERROR,
 } from "../../redux/notification";
 
@@ -19,10 +21,12 @@ import { OptionList } from "../../features/OptionList";
 import { ResultList } from "../../features/ResultList";
 
 // Components
-import { Button } from "../../components/Button";
+import { Main } from "../../components/Main";
+import { PageHeader } from "../../components/PageHeader";
+import { ButtonPrimary, ButtonTransparent } from "../../components/Button";
 
 // Styles
-import { Container } from "./PollView.style";
+import { Banner } from "./PollView.style";
 
 export const PollView = () => {
   const dispatch = useDispatch();
@@ -30,6 +34,7 @@ export const PollView = () => {
   const { pollId } = useParams();
 
   const [poll, setPoll] = useState(null);
+  const [votes, setVotes] = useState([]);
 
   const [resultsVisible, setResultsVisible] = useState(false);
   const [resultsLive, setResultsLive] = useState(true);
@@ -73,36 +78,73 @@ export const PollView = () => {
     }
   }, [resultsVisible, resultsLive]);
 
+  const castVotes = async () => {
+    try {
+      const updatedPoll = await voteAPI.castVotes(poll.id, votes);
+      setPoll(updatedPoll);
+
+      dispatch(
+        flashNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: "Vote cast successfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        flashNotification({ type: NOTIFICATION_TYPE_ERROR, message: error })
+      );
+    }
+  };
+
   return poll ? (
-    <Container>
-      <h1>{decode(poll.question)}</h1>
-      <Metadata
-        user={poll.user}
-        createdAt={poll.createdAt}
-        linkToProfile={true}
-      />
+    <Main>
+      <PageHeader main={decode(poll.question)}>
+        <Metadata
+          user={poll.user}
+          createdAt={poll.createdAt}
+          linkToProfile={true}
+        />
+      </PageHeader>
       {resultsVisible ? (
-        <>
-          <Button
-            text="Back to Poll"
-            onClick={() => setResultsVisible(false)}
-          />
-          <Button
-            text={resultsLive ? "Live Results" : "Refresh Results"}
-            onClick={() => setResultsLive(true)}
-          />
+        <div>
+          <Banner>
+            <ButtonPrimary
+              icon={["fas", resultsLive ? "signal-stream" : "arrows-rotate"]}
+              text={resultsLive ? "Live Results" : "Refresh Results"}
+              color={resultsLive ? "green" : "blue"}
+              onClick={() => setResultsLive(true)}
+            />
+            <ButtonTransparent
+              icon={["fas", "arrow-right"]}
+              text="Back to Poll"
+              onClick={() => setResultsVisible(false)}
+            />
+          </Banner>
           <ResultList poll={poll} />
-        </>
+        </div>
       ) : (
-        <>
+        <div>
+          <p>
+            {poll.allowMultipleVotes
+              ? "Choose one or more options:"
+              : "Choose an option:"}
+          </p>
           <OptionList
-            pollId={poll.id}
             options={poll.options}
-            setPoll={setPoll}
+            votes={votes}
+            setVotes={setVotes}
+            allowMultipleVotes={poll.allowMultipleVotes}
           />
-          <Button text="Show Results" onClick={() => setResultsVisible(true)} />
-        </>
+          <Banner>
+            <ButtonPrimary text="Cast Vote" onClick={castVotes} />
+            <ButtonTransparent
+              icon={["fas", "arrow-right"]}
+              text="Show Results"
+              onClick={() => setResultsVisible(true)}
+            />
+          </Banner>
+        </div>
       )}
-    </Container>
+    </Main>
   ) : null;
 };

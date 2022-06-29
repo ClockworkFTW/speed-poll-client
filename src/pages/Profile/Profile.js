@@ -1,13 +1,11 @@
 import React from "react";
 
 // Components
+import { Main } from "../../components/Main";
 import { PageHeader } from "../../components/PageHeader";
 
-// Styles
-import { Container } from "./Profile.style";
-
 export const Profile = () => (
-  <Container>
+  <Main>
     <PageHeader main="Profile" sub="..." />
-  </Container>
+  </Main>
 );

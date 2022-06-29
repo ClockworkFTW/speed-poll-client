@@ -11,8 +11,11 @@ import { localSignIn } from "../../redux/auth";
 // Hooks
 import { useOauth } from "../../hooks";
 
+// Components
+import { Main } from "../../components/Main";
+
 // Style
-import { Container, Header, Input, Button } from "./SignIn.style";
+import { Header, Input, Button } from "./SignIn.style";
 
 export const SignIn = () => {
   useOauth();
@@ -43,7 +46,7 @@ export const SignIn = () => {
   return user ? (
     <Navigate to="/" replace />
   ) : (
-    <Container>
+    <Main>
       {loading && <p>Loading...</p>}
       <Header>Sign in with email</Header>
       <Input
@@ -66,6 +69,6 @@ export const SignIn = () => {
       <p>
         Don't have an account? <Link to="/sign-up">Sign up</Link>
       </p>
-    </Container>
+    </Main>
   );
 };

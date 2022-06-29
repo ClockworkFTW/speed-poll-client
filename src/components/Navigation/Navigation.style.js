@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.header`
+  grid-area: header;
   background: #ffffff;
 `;
 

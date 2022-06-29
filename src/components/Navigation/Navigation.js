@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../redux/auth";
 
 // Components
-import { Button } from "../Button";
+import { ButtonPrimary } from "../Button";
 
 // Styles
 import { Wrapper, Container, Menu, Logo, NavLink } from "./Navigation.style";
@@ -31,7 +31,7 @@ export const Navigation = () => {
         {user ? (
           <Menu>
             <NavLink to={`/profile/${user.id}`}>{user.username}</NavLink>
-            <Button text="Sign Out" onClick={handleSignOut} />
+            <ButtonPrimary text="Sign Out" onClick={handleSignOut} />
           </Menu>
         ) : (
           <Menu>

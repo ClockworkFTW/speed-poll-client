@@ -1,6 +1,10 @@
 import styled, { keyframes } from "styled-components";
 
 export const Wrapper = styled.div`
+  grid-area: notification;
+`;
+
+export const Center = styled.div`
   max-width: 860px;
   margin: 20px auto;
 `;

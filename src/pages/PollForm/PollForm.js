@@ -19,11 +19,12 @@ import { OptionEditor } from "../../features/OptionEditor";
 import { SettingEditor } from "../../features/SettingEditor";
 
 // Components
+import { Main } from "../../components/Main";
 import { PageHeader } from "../../components/PageHeader";
-import { Button } from "../../components/Button";
+import { ButtonPrimary } from "../../components/Button";
 
 // Styles
-import { Container, Group, Label, TextArea } from "./PollForm.style";
+import { Group, Label, TextArea } from "./PollForm.style";
 
 export const PollForm = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ export const PollForm = () => {
   };
 
   return (
-    <Container>
+    <Main>
       <PageHeader
         main="Create a Poll"
         sub="Complete the below fields to create your poll."
@@ -90,7 +91,7 @@ export const PollForm = () => {
         <Label>Poll Settings</Label>
         <SettingEditor settings={settings} setSettings={setSettings} />
       </Group>
-      <Button text="Create Poll" onClick={handleCreatePoll} />
-    </Container>
+      <ButtonPrimary text="Create Poll" onClick={handleCreatePoll} />
+    </Main>
   );
 };
