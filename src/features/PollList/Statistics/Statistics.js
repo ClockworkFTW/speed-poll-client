@@ -13,7 +13,8 @@ export const Statistics = ({ poll }) => {
   );
 
   const commentCount = 0;
-  const viewCount = 0;
+
+  const viewCount = poll.views.length;
 
   return (
     <Container>
