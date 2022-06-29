@@ -7,7 +7,10 @@ export const injectStore = (_store) => {
   store = _store;
 };
 
-export const BASE_URL = "https://jnb-api.ngrok.io";
+export const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "https://jnb-api.ngrok.io"
+    : "https://speed-poll.com/api";
 
 const API = axios.create({ baseURL: BASE_URL });
 
