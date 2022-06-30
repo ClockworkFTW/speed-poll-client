@@ -3,10 +3,11 @@ import { useDrag, useDrop } from "react-dnd";
 
 // Components
 import { Icon } from "../../../components/Icon";
+import { Input } from "../../../components/Input";
 import { ColorPicker } from "./ColorPicker";
 
 // Styles
-import { Container, Input, Controls, Control } from "./Option.style";
+import { Container, Controls, Control } from "./Option.style";
 
 export const Option = memo((props) => {
   const { setProp, delOption, moveOption, findOption } = props;
@@ -53,6 +54,7 @@ export const Option = memo((props) => {
         placeholder={`Option ${index + 1}`}
         value={content}
         onChange={(e) => setProp(uuid, "content", e.target.value)}
+        style={{ padding: "16px 88px 16px 52px" }}
       />
       <Controls>
         <Control onClick={delOption} cursor="pointer">

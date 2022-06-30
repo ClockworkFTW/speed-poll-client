@@ -21,10 +21,11 @@ import { SettingEditor } from "../../features/SettingEditor";
 // Components
 import { Main } from "../../components/Main";
 import { PageHeader } from "../../components/PageHeader";
+import { TextArea } from "../../components/TextArea";
 import { ButtonPrimary } from "../../components/Button";
 
 // Styles
-import { Group, Label, TextArea } from "./PollForm.style";
+import { Group, Label } from "./PollForm.style";
 
 export const PollForm = () => {
   const dispatch = useDispatch();

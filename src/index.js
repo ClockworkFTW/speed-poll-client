@@ -7,7 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 
 // Style
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle, theme } from "./App.style";
+import { ConfigProvider } from "react-avatar";
+import { theme, avatarColors } from "./App.style";
 
 // Redux
 import { Provider } from "react-redux";
@@ -25,8 +26,9 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
+        <ConfigProvider colors={avatarColors}>
+          <App />
+        </ConfigProvider>
       </ThemeProvider>
     </PersistGate>
   </Provider>

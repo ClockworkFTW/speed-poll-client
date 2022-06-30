@@ -1,8 +1,8 @@
 import API from ".";
 
-export const createVote = async (vote) => {
+export const createComment = async (comment) => {
   try {
-    const res = await API.post(`/vote/create`, vote);
+    const res = await API.post(`/comment/create`, comment);
     return res.data.poll;
   } catch (error) {
     throw error.response.data;

@@ -17,8 +17,12 @@ import { Leaderboard } from "./pages/Leaderboard/Leaderboard";
 import { Profile } from "./pages/Profile/Profile";
 import { NotFound } from "./pages/NotFound/NotFound";
 
+// Style
+import { GlobalStyle } from "./App.style";
+
 const App = () => (
   <BrowserRouter>
+    <GlobalStyle />
     <Navigation />
     <Notification />
     <Routes>

@@ -7,6 +7,7 @@ import { decode } from "he";
 import { BASE_URL } from "../../api";
 import * as pollAPI from "../../api/poll";
 import * as voteAPI from "../../api/vote";
+import * as commentAPI from "../../api/comment";
 
 // Redux
 import {
@@ -19,6 +20,7 @@ import {
 import { Metadata } from "../../features/PollList/Metadata";
 import { OptionList } from "../../features/OptionList";
 import { ResultList } from "../../features/ResultList";
+import { CommentList } from "../../features/CommentList";
 
 // Components
 import { Main } from "../../components/Main";
@@ -80,13 +82,35 @@ export const PollView = () => {
 
   const castVotes = async () => {
     try {
-      const updatedPoll = await voteAPI.castVotes(poll.id, votes);
+      const updatedPoll = await voteAPI.createVote({ pollId: poll.id, votes });
       setPoll(updatedPoll);
 
       dispatch(
         flashNotification({
           type: NOTIFICATION_TYPE_SUCCESS,
           message: "Vote cast successfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        flashNotification({ type: NOTIFICATION_TYPE_ERROR, message: error })
+      );
+    }
+  };
+
+  const createComment = async (comment) => {
+    try {
+      const updatedPoll = await commentAPI.createComment({
+        ...comment,
+        pollId: poll.id,
+      });
+
+      setPoll(updatedPoll);
+
+      dispatch(
+        flashNotification({
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: "Comment created successfully!",
         })
       );
     } catch (error) {
@@ -121,6 +145,7 @@ export const PollView = () => {
             />
           </Banner>
           <ResultList poll={poll} />
+          <CommentList comments={poll.comments} createComment={createComment} />
         </div>
       ) : (
         <div>

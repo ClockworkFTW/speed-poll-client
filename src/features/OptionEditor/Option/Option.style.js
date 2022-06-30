@@ -6,19 +6,6 @@ export const Container = styled.div`
   opacity: ${({ opacity }) => opacity};
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  padding: 16px 88px 16px 52px;
-  outline: none;
-  border: solid 2px transparent;
-  border-radius: ${({ theme }) => theme.radius};
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow};
-  :focus {
-    border: ${({ theme }) => `solid 2px ${theme.colors.blue["500"]}`};
-  }
-`;
-
 export const Controls = styled.div`
   position: absolute;
   right: 16px;
