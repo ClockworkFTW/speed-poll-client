@@ -13,6 +13,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.28.0",
     "he": "^1.2.0",
     "immutability-helper": "^3.1.1",
@@ -31,9 +32,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cross-env REACT_APP_BASE_URL=https://jnb-api.ngrok.io react-scripts start",
+    "build": "cross-env REACT_APP_BASE_URL=https://speed-poll.com/api react-scripts build",
+    "test": "cross-env REACT_APP_BASE_URL=https://jnb-api.ngrok.io react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
