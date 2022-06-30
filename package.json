@@ -32,9 +32,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_BASE_URL=https://jnb-api.ngrok.io react-scripts start",
-    "build": "cross-env REACT_APP_BASE_URL=https://speed-poll.com/api react-scripts build",
-    "test": "cross-env REACT_APP_BASE_URL=https://jnb-api.ngrok.io react-scripts test",
+    "start": "cross-env REACT_APP_BASE_URL=https://speed-poll.com/api react-scripts start",
+    "dev": "cross-env REACT_APP_BASE_URL=https://jnb-api.ngrok.io react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
