@@ -1,4 +1,5 @@
 import React from "react";
+import { decode } from "he";
 
 import { Container, Banner, BarContainer, BarContent } from "./Result.style";
 
@@ -8,7 +9,7 @@ export const Result = ({ index, content, color, voteCount, percent }) => (
     margin={index ? "12px" : "none"}
   >
     <Banner>
-      <h3>{content}</h3>
+      <h3>{decode(content)}</h3>
       <h3>{percent}%</h3>
     </Banner>
     <BarContainer color={!index ? color : undefined}>

@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    background-color: #fafafa;
+    background-color: ${({ theme }) => theme.colors.neutral["50"]};
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
@@ -68,6 +68,7 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: ${({ theme }) => theme.colors.neutral["800"]};
+    transition: color 0.2s ease-in-out;
     :hover {
       color: ${({ theme }) => theme.colors.blue["500"]};
     }
@@ -358,25 +359,9 @@ const colors = {
   },
 };
 
-const hexToRGB = (h) => {
-  let r = 0,
-    g = 0,
-    b = 0;
-
-  // 3 digits
-  if (h.length === 4) {
-    r = "0x" + h[1] + h[1];
-    g = "0x" + h[2] + h[2];
-    b = "0x" + h[3] + h[3];
-
-    // 6 digits
-  } else if (h.length === 7) {
-    r = "0x" + h[1] + h[2];
-    g = "0x" + h[3] + h[4];
-    b = "0x" + h[5] + h[6];
-  }
-
-  return `rgb(${+r},${+g},${+b},0.2)`;
+export const skltnColors = {
+  b: colors.neutral[200],
+  h: colors.neutral[50],
 };
 
 export const avatarColors = [
@@ -397,6 +382,27 @@ export const avatarColors = [
   colors.fuchsia[500],
   colors.pink[500],
 ];
+
+const hexToRGB = (h) => {
+  let r = 0,
+    g = 0,
+    b = 0;
+
+  // 3 digits
+  if (h.length === 4) {
+    r = "0x" + h[1] + h[1];
+    g = "0x" + h[2] + h[2];
+    b = "0x" + h[3] + h[3];
+
+    // 6 digits
+  } else if (h.length === 7) {
+    r = "0x" + h[1] + h[2];
+    g = "0x" + h[3] + h[4];
+    b = "0x" + h[5] + h[6];
+  }
+
+  return `rgb(${+r},${+g},${+b},0.2)`;
+};
 
 export const theme = {
   colors,

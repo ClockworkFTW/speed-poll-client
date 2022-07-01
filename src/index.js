@@ -8,7 +8,9 @@ import reportWebVitals from "./reportWebVitals";
 // Style
 import { ThemeProvider } from "styled-components";
 import { ConfigProvider } from "react-avatar";
-import { theme, avatarColors } from "./App.style";
+import { theme, skltnColors, avatarColors } from "./App.style";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 // Redux
 import { Provider } from "react-redux";
@@ -26,9 +28,11 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ThemeProvider theme={theme}>
-        <ConfigProvider colors={avatarColors}>
-          <App />
-        </ConfigProvider>
+        <SkeletonTheme baseColor={skltnColors.b} highlightColor={skltnColors.h}>
+          <ConfigProvider colors={avatarColors}>
+            <App />
+          </ConfigProvider>
+        </SkeletonTheme>
       </ThemeProvider>
     </PersistGate>
   </Provider>
