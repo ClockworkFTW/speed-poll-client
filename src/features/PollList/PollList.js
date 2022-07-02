@@ -38,14 +38,18 @@ export const PollList = (props) => {
     }
   });
 
-  // Filter out expired polls
+  // Filter out hidden and expired polls
   polls = polls.filter((poll) => {
-    const { endDate } = poll;
+    const { privatePoll, endDate } = poll;
+
+    const isLive = endDate
+      ? dateFns.isAfter(new Date(endDate), new Date())
+      : true;
 
     if (filtered) {
-      return endDate ? dateFns.isAfter(new Date(endDate), new Date()) : true;
+      return !privatePoll && isLive;
     } else {
-      return true;
+      return !privatePoll;
     }
   });
 

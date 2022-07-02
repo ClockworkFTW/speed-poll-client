@@ -37,4 +37,5 @@ export const BarContent = styled.div`
   bottom: 0px;
   width: ${({ width }) => `${width}%`};
   background-color: ${({ theme, color }) => theme.colors[color]["500"]};
+  transition: width 1s ease;
 `;

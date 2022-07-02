@@ -21,11 +21,17 @@ import { Metadata } from "../../features/PollList/Metadata";
 import { OptionList } from "../../features/OptionList";
 import { ResultList } from "../../features/ResultList";
 import { CommentList } from "../../features/CommentList";
+import { SettingList } from "../../features/SettingList";
 
 // Components
+import { Icon } from "../../components/Icon";
 import { Main } from "../../components/Main";
 import { PageHeader } from "../../components/PageHeader";
-import { ButtonPrimary, ButtonTransparent } from "../../components/Button";
+import {
+  ButtonPrimary,
+  ButtonAnimated,
+  ButtonTransparent,
+} from "../../components/Button";
 
 // Styles
 import { Banner } from "./PollView.style";
@@ -130,14 +136,23 @@ export const PollView = () => {
         />
       </PageHeader>
       {resultsVisible ? (
-        <div>
+        <>
           <Banner>
-            <ButtonPrimary
-              icon={["fas", resultsLive ? "signal-stream" : "arrows-rotate"]}
-              text={resultsLive ? "Live Results" : "Refresh Results"}
-              color={resultsLive ? "green" : "blue"}
-              onClick={() => setResultsLive(true)}
-            />
+            {resultsLive ? (
+              <ButtonAnimated
+                icon={["fas", "signal-stream"]}
+                text="Live Results"
+                color="green"
+                onClick={() => setResultsLive(false)}
+              />
+            ) : (
+              <ButtonPrimary
+                icon={["fas", "arrows-rotate"]}
+                text="Refresh Results"
+                onClick={() => setResultsLive(true)}
+              />
+            )}
+
             <ButtonTransparent
               icon={["fas", "arrow-right"]}
               text="Back to Poll"
@@ -145,10 +160,15 @@ export const PollView = () => {
             />
           </Banner>
           <ResultList poll={poll} />
-          <CommentList comments={poll.comments} createComment={createComment} />
-        </div>
+          {poll.addComments && (
+            <CommentList
+              comments={poll.comments}
+              createComment={createComment}
+            />
+          )}
+        </>
       ) : (
-        <div>
+        <>
           <p>
             {poll.allowMultipleVotes
               ? "Choose one or more options:"
@@ -162,14 +182,25 @@ export const PollView = () => {
           />
           <Banner>
             <ButtonPrimary text="Cast Vote" onClick={castVotes} />
-            <ButtonTransparent
-              icon={["fas", "arrow-right"]}
-              text="Show Results"
-              onClick={() => setResultsVisible(true)}
-            />
+            {poll.hideResults ? (
+              <p>
+                <Icon
+                  icon={["fas", "circle-question"]}
+                  style={{ marginRight: "6px" }}
+                />
+                Results Hidden by Creator
+              </p>
+            ) : (
+              <ButtonTransparent
+                icon={["fas", "arrow-right"]}
+                text="Show Results"
+                onClick={() => setResultsVisible(true)}
+              />
+            )}
           </Banner>
-        </div>
+        </>
       )}
+      <SettingList poll={poll} />
     </Main>
   ) : null;
 };
