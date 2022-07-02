@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Components
@@ -20,25 +21,34 @@ import { NotFound } from "./pages/NotFound/NotFound";
 // Style
 import { GlobalStyle } from "./App.style";
 
-const App = () => (
-  <BrowserRouter>
-    <GlobalStyle />
-    <Navigation />
-    <Notification />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/sign-in" element={<SignIn />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/poll/:pollId" element={<PollView />} />
-      <Route path="/leaderboard" element={<Leaderboard />} />
-      <Route element={<ProtectedRoute redirectPath="/sign-in" />}>
-        <Route path="/create" element={<PollForm />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    <Footer />
-  </BrowserRouter>
-);
+// Google Analytics
+ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
+
+const App = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <GlobalStyle />
+      <Navigation />
+      <Notification />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/poll/:pollId" element={<PollView />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route element={<ProtectedRoute redirectPath="/sign-in" />}>
+          <Route path="/create" element={<PollForm />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+};
 
 export default App;
