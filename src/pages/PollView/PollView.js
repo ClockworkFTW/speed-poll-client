@@ -169,16 +169,12 @@ export const PollView = () => {
         </>
       ) : (
         <>
-          <p>
-            {poll.allowMultipleVotes
-              ? "Choose one or more options:"
-              : "Choose an option:"}
-          </p>
           <OptionList
             options={poll.options}
             votes={votes}
             setVotes={setVotes}
-            allowMultipleVotes={poll.allowMultipleVotes}
+            multipleChoice={poll.multipleChoice}
+            preventDuplicateVoting={poll.preventDuplicateVoting}
           />
           <Banner>
             <ButtonPrimary text="Cast Vote" onClick={castVotes} />

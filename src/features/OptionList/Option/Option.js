@@ -8,9 +8,7 @@ import { Radio } from "../../../components/Radio";
 // Style
 import { Container } from "./Option.style";
 
-export const Option = (props) => {
-  const { option, votes, setVotes, allowMultipleVotes } = props;
-
+export const Option = ({ option, votes, setVotes, multipleChoice }) => {
   const isSelected = votes.find((vote) => vote === option.id) ? true : false;
 
   const setVoteCheckbox = () => {
@@ -27,7 +25,7 @@ export const Option = (props) => {
 
   return (
     <Container>
-      {allowMultipleVotes ? (
+      {multipleChoice ? (
         <Checkbox
           label={decode(option.content)}
           value={isSelected}

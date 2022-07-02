@@ -35,9 +35,16 @@ export const SettingEditor = ({ settings, setSettings }) => {
         </Setting>
         <Setting>
           <Checkbox
-            label="Allow Multiple Votes"
-            value={settings.allowMultipleVotes}
-            onChange={() => toggleSetting("allowMultipleVotes")}
+            label="Prevent Duplicate Voting"
+            value={settings.preventDuplicateVoting}
+            onChange={() => toggleSetting("preventDuplicateVoting")}
+          />
+        </Setting>
+        <Setting>
+          <Checkbox
+            label="Multiple Choice"
+            value={settings.multipleChoice}
+            onChange={() => toggleSetting("multipleChoice")}
           />
         </Setting>
         <Setting>

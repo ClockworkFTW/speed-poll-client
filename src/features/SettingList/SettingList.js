@@ -37,13 +37,13 @@ export const SettingList = ({ poll }) => {
             : "The results of this poll are publicly available at any time."}
         </p>
         <p>
-          {poll.allowMultipleVotes
-            ? "Users may submit multiple votes."
-            : "Users may only submit one vote. Duplicate votes are checked based on IP-Address."}
+          {poll.preventDuplicateVoting
+            ? "Users may only submit one vote. Duplicate votes are checked based on IP-Address."
+            : "Users may vote as many times as they wish."}
         </p>
         <p>
           {poll.loginToVote
-            ? "Users must be logged in to vote on this poll."
+            ? "Only logged in users may vote on this poll."
             : "Anonymous users may vote on this poll."}
         </p>
         <p>

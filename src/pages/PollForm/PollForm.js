@@ -40,7 +40,8 @@ export const PollForm = () => {
 
   const [settings, setSettings] = useState({
     privatePoll: false,
-    allowMultipleVotes: false,
+    preventDuplicateVoting: false,
+    multipleChoice: false,
     addComments: false,
     loginToVote: false,
     hideResults: false,
